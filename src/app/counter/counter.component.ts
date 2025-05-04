@@ -12,10 +12,13 @@ import { Counter } from "../models/counter.model";
         }
     `,
     template: `
-        <div class="counter" [style]="{'background': (color ?? 'transparent'), 'border': '1px solid black' }" (click)="colorSelected(color)"></div>
+        <div class="counter" [style]="{'background': (color ?? 'transparent'), 'border': highlighted ? ('1px solid black') : ('1px solid #D3D3D3') }" 
+            (click)="colorSelected(color)">
+        </div>
     `
 })
 export class CounterComponent {
+    @Input() highlighted = false;
     @Input() color: Counter | undefined;
     @Input() referencePosition: number = -1;
     @Output() onSelection = new EventEmitter<{color: Counter | undefined, referencePosition: number }>();

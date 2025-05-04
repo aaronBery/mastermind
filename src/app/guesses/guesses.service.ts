@@ -6,6 +6,7 @@ import { Counter } from "../models/counter.model";
 })
 export class GuessesService {
     guesses = signal<(Counter | undefined)[][]>([]);
+    currentGuessRow = signal<number>(0);
 
     updateGuess(guessIndex: number, counterIndex: number, guessColor: Counter | undefined) {
         this.guesses.update(guesses => {
