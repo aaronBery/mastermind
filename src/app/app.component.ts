@@ -24,5 +24,6 @@ export class AppComponent implements OnInit {
     this.countersToGuessService.setSelectedCounters();
 
     this.guessesService.initializeGuesses();
+    this.guessesService.initizialiseMarks();
   }
 }

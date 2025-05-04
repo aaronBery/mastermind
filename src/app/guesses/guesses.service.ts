@@ -1,5 +1,5 @@
 import { computed, inject, Injectable, signal } from "@angular/core";
-import { Counter, GameSatus } from "../models/counter.model";
+import { Counter, GameSatus, Marks } from "../models/counter.model";
 import { CountersToGuessService } from "../counters-to-guess/counter-to-guess.service";
 
 @Injectable({
@@ -8,6 +8,7 @@ import { CountersToGuessService } from "../counters-to-guess/counter-to-guess.se
 export class GuessesService {
     gameStatus: GameSatus = 'IN_PROGRESS';
     guesses = signal<(Counter | undefined)[][]>([]);
+    marks = signal<(Marks | undefined)[][]>([]);
     currentGuessRow = signal<number>(0);
 
     counterToGuessService = inject(CountersToGuessService);
@@ -16,6 +17,8 @@ export class GuessesService {
 
     guess() {
         const numberOfGuesses = this.guesses().length;
+        
+       this.markGuesses();
 
         if (this.isCorrectGuess()) {
             this.gameStatus = 'SUCCESS';
@@ -61,6 +64,19 @@ export class GuessesService {
         ]);
     }
 
+    initizialiseMarks() {
+        const blankMarks: (Marks | undefined)[] = [undefined, undefined, undefined, undefined];
+
+        this.marks.set([
+            [...blankMarks],
+            [...blankMarks],
+            [...blankMarks],
+            [...blankMarks],
+            [...blankMarks],
+            [...blankMarks],
+        ]);
+    }
+
     private isCorrectGuess() {
         const currentGuesses = this.currentRowOfGuesses();
         const selectedCounters = this.counterToGuessService.selectedCounter();
@@ -71,4 +87,45 @@ export class GuessesService {
 
         return currentGuesses.every((guess, index) => guess === selectedCounters[index]);
     }
+
+    private markGuesses() {
+        const currentGuesses = this.currentRowOfGuesses();
+        const selectedCounters = this.counterToGuessService.selectedCounter();
+        
+        if (!currentGuesses || !selectedCounters) {
+            return;
+        }
+
+        const marks: (Marks | undefined)[] = Array(4).fill(undefined);
+        const blackMarkedIndexes: number[] = [];
+        const whiteAssignedIndexes: number[] = [];
+
+        // First pass: mark black for exact matches
+        currentGuesses.forEach((guess, index) => {
+            if (guess === selectedCounters[index]) {
+                marks[index] = 'black';
+                blackMarkedIndexes.push(index);
+            }
+        });
+
+        currentGuesses.forEach((guess, index) => {
+            const selectedCounterMatchedInWrongPositionIndex = selectedCounters.findIndex((selectedCounter, selectedCounterIndex) => 
+                selectedCounter === guess && !blackMarkedIndexes.includes(selectedCounterIndex) && !blackMarkedIndexes.includes(index)
+                && !whiteAssignedIndexes.includes(selectedCounterIndex)) 
+
+            if (selectedCounterMatchedInWrongPositionIndex > -1) {
+                marks[index] = 'white';
+                whiteAssignedIndexes.push(selectedCounterMatchedInWrongPositionIndex);
+            }
+        });
+
+        // Update marks for current row
+        this.marks.update(currentMarks => {
+            const newMarks = [...currentMarks];
+            newMarks[this.currentGuessRow()] = marks;
+            return newMarks;
+        });
+    }
+
+
 }

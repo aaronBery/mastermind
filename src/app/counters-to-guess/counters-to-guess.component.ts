@@ -3,6 +3,7 @@ import { CountersToGuessService } from "./counter-to-guess.service";
 import { CommonModule } from "@angular/common";
 import { CounterComponent } from "../counter/counter.component";
 import { HiddenComponent } from "../components/hidden-counter/hidden-counter.component";
+import { GuessesService } from "../guesses/guesses.service";
 
 @Component({
     standalone: true,
@@ -12,9 +13,6 @@ import { HiddenComponent } from "../components/hidden-counter/hidden-counter.com
     CounterComponent,
     HiddenComponent,
 ],
-    providers: [
-        CountersToGuessService
-    ],
     template: `
         <ul class="flex flex-row">
             @for (item of countersToGuessService.selectedCounter(); track $index) {
@@ -36,6 +34,7 @@ export class CountersToGuess implements OnInit {
     @Input() hideValues = true;
     
     countersToGuessService = inject(CountersToGuessService);
+    guessesService = inject(GuessesService);
 
     ngOnInit(): void {
         this.countersToGuessService.setSelectedCounters();
