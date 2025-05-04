@@ -16,10 +16,8 @@ export class GuessesService {
 
     guess() {
         const numberOfGuesses = this.guesses().length;
-        const correctGuess = this.counterToGuessService.selectedCounter() === this.currentRowOfGuesses();
 
-
-        if (correctGuess) {
+        if (this.isCorrectGuess()) {
             this.gameStatus = 'SUCCESS';
             return;
         }
@@ -61,5 +59,16 @@ export class GuessesService {
             [...blankGuesses],
             [...blankGuesses],
         ]);
+    }
+
+    private isCorrectGuess() {
+        const currentGuesses = this.currentRowOfGuesses();
+        const selectedCounters = this.counterToGuessService.selectedCounter();
+        
+        if (!currentGuesses || !selectedCounters) {
+            return false;
+        }
+
+        return currentGuesses.every((guess, index) => guess === selectedCounters[index]);
     }
 }

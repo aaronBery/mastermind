@@ -1,6 +1,8 @@
 <main class="w-full grid justify-items-center">
   <div class="w-100 text-center mt-5">
-    <counters-to-guess></counters-to-guess>
+    <div [class]="{'hidden': guessesService.gameStatus === 'IN_PROGRESS'}">
+      <counters-to-guess></counters-to-guess>
+    </div>
     
     @for (guess of guessesService.guesses(); track $index) {
       <guess-component [guesses]="guess" [guessRow]="$index"></guess-component>
