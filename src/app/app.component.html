@@ -6,5 +6,11 @@
       <guess-component [guesses]="guess" [guessRow]="$index"></guess-component>
     }
   </div>
-
+  <div class="w-100 text-center mt-5">
+    @if (guessesService.gameStatus === 'FAILED') {
+      <p>GAME OVER</p>
+    } @else if (guessesService.gameStatus === 'SUCCESS') {
+      <p>WINNER!</p>
+    }
+  </div>
 </main>

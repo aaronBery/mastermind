@@ -17,8 +17,8 @@ import { CommonModule } from "@angular/common";
                 <counter-component [highlighted]="$index === currentlyEditedCounterIndex" [color]="item" [referencePosition]="$index" (onSelection)="openPicker($event)"></counter-component>
             </li>
         }
-        @if (isCurrentGuessRow()) {
-            <li><button>Guess</button></li>
+        @if (isCurrentGuessRow() && guessesService.gameStatus === 'IN_PROGRESS') {
+            <li><button (click)="guessesService.guess()">Guess</button></li>
         }
         </ul>
         <counter-picker [class]="{ 'hidden': !pickerOpen }" (onSelection)="selectionMade($event)" [referencePosition]="currentlyEditedCounterIndex" ></counter-picker>
