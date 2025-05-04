@@ -1,5 +1,5 @@
 import { Injectable, signal } from "@angular/core";
-import { Counter } from "../counters-to-guess/counter-to-guess.service";
+import { Counter } from "../models/counter.model";
 
 @Injectable({
     providedIn: 'root',
@@ -7,11 +7,20 @@ import { Counter } from "../counters-to-guess/counter-to-guess.service";
 export class GuessesService {
     guesses = signal<(Counter | undefined)[][]>([]);
 
-    addGuess(guess: (Counter | undefined)[]) {
+    updateGuess(guessIndex: number, counterIndex: number, guessColor: Counter | undefined) {
         this.guesses.update(guesses => {
-            guesses.push(guess);
+            const newGuesses: (Counter | undefined)[][] = [];
 
-            return [...guesses];
+            guesses.forEach((guess, i) => {
+                const copyOfGuess = [...guess];
+                
+                if (guessIndex === i) {
+                    copyOfGuess[counterIndex] = guessColor;
+                }
+
+                newGuesses.push(copyOfGuess);
+            });
+            return newGuesses;
         });
     }
 
@@ -25,6 +34,6 @@ export class GuessesService {
             [...blankGuesses],
             [...blankGuesses],
             [...blankGuesses],
-        ])
+        ]);
     }
 }

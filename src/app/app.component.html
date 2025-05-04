@@ -3,9 +3,8 @@
     <counters-to-guess></counters-to-guess>
     
     @for (guess of guessesService.guesses(); track $index) {
-      <guess-component [guesses]="guess"></guess-component>
+      <guess-component [guesses]="guess" [guessRow]="$index"></guess-component>
     }
-    
   </div>
 
 </main>

@@ -1,7 +1,6 @@
-import { Inject, Injectable, signal } from "@angular/core";
+import { Injectable, signal } from "@angular/core";
+import { Counter } from "../models/counter.model";
 
-
-export type Counter = 'blue' | 'green' | 'red' | 'purple' | 'pink';
 
 @Injectable({
     providedIn: 'root'
