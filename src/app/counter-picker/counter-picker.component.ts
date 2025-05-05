@@ -13,9 +13,9 @@ import { Counter, counters } from "../models/counter.model";
         .picker { position: absolute; border: 1px solid; background: white;}
     `,
     template: `
-        <ul class="picker flex flex-row p-10">
+        <ul class="picker grid grid-cols-3 gap-5 p-10">
             @for (color of CHOICES; track $index) {
-                <li class="mr-5">
+                <li>
                     <counter-component [color]="color" (onSelection)="selection($event)" [referencePosition]="referencePosition"></counter-component>
                 </li>
             }

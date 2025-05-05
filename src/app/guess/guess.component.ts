@@ -19,7 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
             </li>
         }
         @if (isCurrentGuessRow() && guessesService.gameStatus === 'IN_PROGRESS') {
-            <li><button (click)="guessesService.guess()" mat-button>Check</button></li>
+            <li><button (click)="guessesService.guess()" mat-stroked-button>Check</button></li>
         }
         </ul>
         <counter-picker [class]="{ 'hidden': !pickerOpen }" (onSelection)="selectionMade($event)" [referencePosition]="currentlyEditedCounterIndex" ></counter-picker>

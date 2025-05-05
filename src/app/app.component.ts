@@ -4,18 +4,19 @@ import { CountersToGuess } from './counters-to-guess/counters-to-guess.component
 import { GuessesService } from './guesses/guesses.service';
 import { GuessComponent } from "./guess/guess.component";
 import { MarkComponent } from './components/mark/mark.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-root',
-  imports: [CountersToGuess, GuessComponent, MarkComponent],
+  imports: [CountersToGuess, GuessComponent, MarkComponent, MatButtonModule],
   styleUrl: './app.component.css',
   providers: [
     CountersToGuessService,
     GuessesService,
   ],
   template: `
-    <main class="w-full grid justify-items-center">
-      <h1>Mastermind</h1>
+    <main class="w-full grid justify-items-center p-5">
+      <h1 class="text-2xl mb-5">Mastermind</h1>
       <div class="w-100 text-center mt-5">
         <div class="grid grid-cols-3">
           <div class="col-span-1"></div>
@@ -48,8 +49,18 @@ import { MarkComponent } from './components/mark/mark.component';
         } @else if (guessesService.gameStatus === 'SUCCESS') {
           <p>WINNER!</p>
         }
+
+        <p>The aim of the game is to guess the hidden sequence (note colours can be duplicated). 
+          After each guess you are scored with black and white markers. 
+          Black markers indicate the correct colour in the correct position. 
+          White markers indicate a correct colour in the wrong position. 
+          You must guess the correct combination in {{guessesService.guesses().length}} attempts.
+        </p>
+        <p class="mt-5">
+          <a mat-stroked-button href="https://en.wikipedia.org/wiki/Mastermind_(board_game)#Gameplay_and_rules" target="_blank">Rules</a> 
+        </p>
       </div>
-    </main>
+     </main>
   `
 })
 export class AppComponent implements OnInit {
