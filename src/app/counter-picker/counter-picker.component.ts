@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output, Input } from "@angular/core";
 import { } from '@angular/material/dialog'
-import { CounterComponent } from "../counter/counter.component";
+import { CounterComponent } from "../components/counter/counter.component";
 import { Counter, counters } from "../models/counter.model";
 
 @Component({

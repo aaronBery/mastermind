@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, Input } from "@angular/core";
 import { CountersToGuessService } from "./counter-to-guess.service";
 import { CommonModule } from "@angular/common";
-import { CounterComponent } from "../counter/counter.component";
+import { CounterComponent } from "../components/counter/counter.component";
 import { HiddenComponent } from "../components/hidden-counter/hidden-counter.component";
 import { GuessesService } from "../guesses/guesses.service";
 

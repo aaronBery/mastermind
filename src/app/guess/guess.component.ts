@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, Input } from "@angular/core";
-import { CounterComponent } from "../counter/counter.component";
+import { CounterComponent } from "../components/counter/counter.component";
 import { Counter } from "../models/counter.model";
 import { CounterPickerComponent } from "../counter-picker/counter-picker.component";
 import { GuessesService } from "../guesses/guesses.service";

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { Counter } from "../models/counter.model";
+import { Counter } from "../../models/counter.model";
 
 @Component({
     selector: 'counter-component',
