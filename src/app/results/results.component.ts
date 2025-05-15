@@ -13,7 +13,7 @@ import { DisplayResultComponent } from "./display-result/display-result.componen
         <ul>
         @for (result of resultsService.gameHistory(); track $index) {
             <li class="grid grid-cols-2">
-                <span class="col-span-1">ID: {{result.id.slice(0, 5) }}</span>
+                <span class="col-span-1">ID: {{result.id.slice(0, 8) }}...</span>
                 <span class="col-span-1 grid justify-self-end"><app-display-result [gameStatus]="result.outcome"></app-display-result></span
             ></li>
         }

@@ -15,7 +15,13 @@ import { MatButtonModule } from '@angular/material/button';
        <ul class="flex flex-row mt-5 h-[30px] items-center">
         @for (item of guesses; track $index) {
             <li class="mr-5">
-                <counter-component [disabled]="guessRow !== this.guessesService.currentGuessRow() || guessesService.gameStatus() !== 'IN_PROGRESS'" [highlighted]="$index === guessesService.currentlyEditedCounterIndex()" [color]="item" [referencePosition]="$index" (onSelection)="openPicker($event)"></counter-component>
+                <counter-component 
+                    [disabled]="guessRow !== this.guessesService.currentGuessRow() || guessesService.gameStatus() !== 'IN_PROGRESS'" 
+                    [highlighted]="$index === guessesService.currentlyEditedCounterIndex()" 
+                    [color]="item" 
+                    [referencePosition]="$index" 
+                    (onSelection)="openPicker($event)">
+                </counter-component>
             </li>
         }
         @if (isCurrentGuessRow() && guessesService.gameStatus() === 'IN_PROGRESS') {

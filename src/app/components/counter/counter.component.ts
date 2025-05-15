@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, input, Output } from "@angular/core";
 import { Counter } from "../../models/counter.model";
 
 @Component({
@@ -14,24 +14,24 @@ import { Counter } from "../../models/counter.model";
     `,
     template: `
         <div class="counter"  
-            [class]="{'cursor-pointer': !disabled}"
-            [style]="{'background': (color ?? 'transparent'), 'border': highlighted ? ('1px solid black') : ('1px solid #D3D3D3') }" 
-            (click)="colorSelected(color)">
+            [class]="{'cursor-pointer': !disabled()}"
+            [style]="{'background': (color() ?? 'transparent'), 'border': highlighted() && !disabled() ? ('1px solid black') : ('1px solid #D3D3D3') }" 
+            (click)="colorSelected(color())">
         </div>
     `
 })
 export class CounterComponent {
-    @Input() disabled = false;
-    @Input() highlighted = false;
-    @Input() color: Counter | undefined;
-    @Input() referencePosition: number = -1;
+    disabled = input<boolean>(false);
+    highlighted = input<boolean>(false);
+    color = input<Counter>();
+    referencePosition = input<number>(-1);
     @Output() onSelection = new EventEmitter<{color: Counter | undefined, referencePosition: number }>();
 
     colorSelected(color: Counter | undefined) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
-        const { referencePosition } = this;
+        const referencePosition = this.referencePosition();
         this.onSelection.emit({ color, referencePosition });
     }
 }

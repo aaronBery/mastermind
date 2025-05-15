@@ -40,6 +40,7 @@ export class GuessesService {
             return;
         }
 
+        this.currentlyEditedCounterIndex.set(-1);
         this.currentGuessRow.update(row => row + 1);
     }
 
