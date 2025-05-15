@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, input, Output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, input, output } from "@angular/core";
 import { Counter } from "../../models/counter.model";
 
 @Component({
@@ -25,7 +25,7 @@ export class CounterComponent {
     highlighted = input<boolean>(false);
     color = input<Counter>();
     referencePosition = input<number>(-1);
-    @Output() onSelection = new EventEmitter<{color: Counter | undefined, referencePosition: number }>();
+    onSelection = output<{color: Counter | undefined, referencePosition: number }>();
 
     colorSelected(color: Counter | undefined) {
         if (this.disabled()) {
