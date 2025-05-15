@@ -58,7 +58,7 @@ import { MatTabsModule } from '@angular/material/tabs';
               </div>
             </div>
           </div>
-          <div class="w-100 text-center mt-5">
+          <div class="w-100 text-center mt-5 p-5">
             @if (guessesService.gameStatus() === 'FAILED') {
               <p>GAME OVER</p>
             } @else if (guessesService.gameStatus() === 'SUCCESS') {
