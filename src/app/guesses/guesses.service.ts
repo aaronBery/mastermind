@@ -6,14 +6,23 @@ import { CountersToGuessService } from "../counters-to-guess/counter-to-guess.se
     providedIn: 'root',
 })
 export class GuessesService {
-    gameStatus: GameSatus = 'IN_PROGRESS';
+    gameStatus = signal<GameSatus>('IN_PROGRESS');
     guesses = signal<(Counter | undefined)[][]>([]);
     marks = signal<(Marks | undefined)[][]>([]);
     currentGuessRow = signal<number>(0);
+    currentlyEditedCounterIndex = signal<number>(-1);
 
     counterToGuessService = inject(CountersToGuessService);
 
     currentRowOfGuesses = computed(() => this.guesses()[this.currentGuessRow()]);
+
+    reset() {
+        this.gameStatus.set('IN_PROGRESS');
+        this.initializeGuesses();
+        this.initizialiseMarks();
+        this.currentGuessRow.set(0);
+        this.currentlyEditedCounterIndex.set(-1);
+    }
 
     guess() {
         const numberOfGuesses = this.guesses().length;
@@ -21,12 +30,12 @@ export class GuessesService {
        this.markGuesses();
 
         if (this.isCorrectGuess()) {
-            this.gameStatus = 'SUCCESS';
+            this.gameStatus.set('SUCCESS');
             return;
         }
 
         if ((this.currentGuessRow() + 1) === numberOfGuesses) {
-            this.gameStatus = 'FAILED';
+            this.gameStatus.set('FAILED');
 
             return;
         }

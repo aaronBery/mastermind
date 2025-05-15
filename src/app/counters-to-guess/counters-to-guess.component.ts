@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, Input } from "@angular/core";
+import { Component, inject, OnInit, Input, ChangeDetectionStrategy } from "@angular/core";
 import { CountersToGuessService } from "./counter-to-guess.service";
 import { CommonModule } from "@angular/common";
 import { CounterComponent } from "../components/counter/counter.component";
@@ -8,6 +8,7 @@ import { GuessesService } from "../guesses/guesses.service";
 @Component({
     standalone: true,
     selector: 'counters-to-guess',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
     CommonModule,
     CounterComponent,

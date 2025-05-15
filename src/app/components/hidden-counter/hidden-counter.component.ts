@@ -1,8 +1,9 @@
-import { Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 
 @Component({
     selector: 'hidden-counter',
     standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     styles: `
     .hidden-counter {
         width: 20px;

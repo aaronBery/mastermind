@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Input } from "@angular/core";
+import { Component, EventEmitter, Output, Input, ChangeDetectionStrategy } from "@angular/core";
 import { } from '@angular/material/dialog'
 import { CounterComponent } from "../components/counter/counter.component";
 import { Counter, counters } from "../models/counter.model";
@@ -6,6 +6,7 @@ import { Counter, counters } from "../models/counter.model";
 @Component({
     selector: 'counter-picker',
     standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
     CounterComponent
 ],

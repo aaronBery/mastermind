@@ -15,14 +15,14 @@ import { MatButtonModule } from '@angular/material/button';
        <ul class="flex flex-row mt-5 h-[30px] items-center">
         @for (item of guesses; track $index) {
             <li class="mr-5">
-                <counter-component [disabled]="guessRow !== this.guessesService.currentGuessRow() || guessesService.gameStatus !== 'IN_PROGRESS'" [highlighted]="$index === currentlyEditedCounterIndex" [color]="item" [referencePosition]="$index" (onSelection)="openPicker($event)"></counter-component>
+                <counter-component [disabled]="guessRow !== this.guessesService.currentGuessRow() || guessesService.gameStatus() !== 'IN_PROGRESS'" [highlighted]="$index === guessesService.currentlyEditedCounterIndex()" [color]="item" [referencePosition]="$index" (onSelection)="openPicker($event)"></counter-component>
             </li>
         }
-        @if (isCurrentGuessRow() && guessesService.gameStatus === 'IN_PROGRESS') {
+        @if (isCurrentGuessRow() && guessesService.gameStatus() === 'IN_PROGRESS') {
             <li><button (click)="guessesService.guess()" mat-stroked-button>Check</button></li>
         }
         </ul>
-        <counter-picker [class]="{ 'hidden': !pickerOpen }" (onSelection)="selectionMade($event)" [referencePosition]="currentlyEditedCounterIndex" ></counter-picker>
+        <counter-picker [class]="{ 'hidden': !pickerOpen }" (onSelection)="selectionMade($event)" [referencePosition]="guessesService.currentlyEditedCounterIndex()" ></counter-picker>
     `
 })
 export class GuessComponent {
@@ -32,14 +32,13 @@ export class GuessComponent {
     guessesService = inject(GuessesService);
 
     pickerOpen = false;
-    currentlyEditedCounterIndex = -1;
 
     isCurrentGuessRow = computed(() => this.guessesService.currentGuessRow() === this.guessRow);
 
     openPicker($event: { color: string | undefined, referencePosition: number }) {
         const { referencePosition } = $event;
         this.pickerOpen = true;
-        this.currentlyEditedCounterIndex = referencePosition;
+        this.guessesService.currentlyEditedCounterIndex.set(referencePosition);
     }
 
     selectionMade($event: { color: Counter | undefined, referencePosition: number }) {

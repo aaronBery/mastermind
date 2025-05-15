@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { Marks } from "../../models/counter.model";
 
 @Component({
     selector: 'mark-component',
     standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     styles: `
         .mark {
             width: 10px;

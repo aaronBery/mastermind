@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
 import { Counter } from "../models/counter.model";
 
 @Component({
     selector: 'counter-component',
     standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     styles: `
         .counter {
             width: 20px;
